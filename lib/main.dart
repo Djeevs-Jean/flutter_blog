@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'article_item.dart';
+import 'article_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,8 +33,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   static List<ArticleItem> articles = ArticleData.articles;
 
+  void navigateToArticleDetailPage(ArticleItem article) {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => ArticleDatailPage(articleItem: article))
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size; // Récupère les dimensions de l'écran
+
     return Scaffold(
       drawer: Drawer(
         child: ListView(
@@ -65,18 +75,34 @@ class _MyHomePageState extends State<MyHomePage> {
         itemBuilder: (BuildContext context, int index) {  
           final article = articles[index];
           return Card(
+            margin: const EdgeInsets.all(10),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
-                const SizedBox(height: 8.0,),
-                Image.network(article.imageUrl, fit: BoxFit.cover, ),
+                const SizedBox(height: 16.0,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Image.network(article.imageUrl, fit: BoxFit.cover, width: double.infinity, height: 200, ),
+                ),
+                // Image.network(article.imageUrl, fit: BoxFit.cover, width: size.width /1, height: size.height /4,),
+
                 const SizedBox(height: 8.0,),
                 Text(article.title, style: AppTheme.titleTextStyle,),
                 const SizedBox(height: 8.0,),
                 Text(article.date),
                 const SizedBox(height: 8.0,),
-                Text(article.summary, style: AppTheme.subtitleTextStyle,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10), 
+                  child: Text(
+                    SubtitleSplit(article.summary).subtitleString(), 
+                    style: AppTheme.subtitleTextStyle,),
+                ),
                 const SizedBox(height: 8.0,),
-                ElevatedButton(onPressed: () { }, style: const ButtonStyle(), child: const Text('Read more',),),
+                ElevatedButton(
+                  onPressed: () { 
+                    navigateToArticleDetailPage(article);
+                  }, 
+                  style: const ButtonStyle(), child: const Text('Read more',),),
                 const SizedBox(height: 8.0,),
               ],
             ),
@@ -107,6 +133,22 @@ class AppTheme {
   );
 }
 
+class SubtitleSplit {
+  final String value;
+
+  SubtitleSplit(this.value);
+
+  String subtitleString() {
+    int N = 200;
+    int countString = value.length;
+    if (countString > N) {
+      return "${value.substring(0, N)}...";
+    } else {
+      return value;
+    }
+  }
+
+}
 class ArticleData {
     static List<ArticleItem> articles = [
     ArticleItem(title: 'Article 1', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
@@ -115,3 +157,4 @@ class ArticleData {
     ArticleItem(title: 'Article 4', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
   ];
 }
+
