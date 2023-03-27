@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ArticleDatailPage extends StatelessWidget {
   final ArticleItem articleItem;
+  
   const ArticleDatailPage({Key? key, required this.articleItem}) : super(key: key);
 
   @override
@@ -17,9 +18,9 @@ class ArticleDatailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(articleItem.imageUrl, fit: BoxFit.cover, width: double.infinity, height: 400,),
+            // Image.network(articleItem.imageUrl, fit: BoxFit.cover, width: double.infinity, height: 400,),
             const SizedBox(height: 16,),
-            Text(articleItem.summary, style: TextStyle(fontSize: 22, ),),
+            Text(articleItem.body, style: const TextStyle(fontSize: 22, ),),
           ],
           ), 
       ),
