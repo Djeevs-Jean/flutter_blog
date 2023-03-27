@@ -40,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   late List<ArticleItem> _articles;
+  bool _isLoading = true; 
   // static List<ArticleItem> articles = ArticleData.articles;
 
   Future<List<ArticleItem>> _getArticles() async {
@@ -67,10 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
     _getArticles().then((value){
       setState(() {
         _articles = value;
+        _isLoading = false;
       });
 
     });
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       // ignore: unnecessary_null_comparison
-      body:ListView.builder(
+      body: _isLoading // check if articles are being fetched
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
         padding: const EdgeInsets.all(10),
         // itemCount: _articles.length, 
         itemCount: _articles.length,
