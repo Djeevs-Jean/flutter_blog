@@ -11,7 +11,9 @@ class ArticleDatailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(articleItem.title),
+        title: Center(child: Text(articleItem.title)),
+        // title: Center(child: Text("Article ${articleItem.id}")),
+        // title: Text(articleItem.title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'article_item.dart';
 import 'article_detail.dart';
@@ -29,8 +28,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -41,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late List<ArticleItem> _articles;
   bool _isLoading = true; 
-  // static List<ArticleItem> articles = ArticleData.articles;
 
   Future<List<ArticleItem>> _getArticles() async {
     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
@@ -102,16 +98,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(child:Text(widget.title)),
       ),
-      // ignore: unnecessary_null_comparison
       body: _isLoading // check if articles are being fetched
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
         padding: const EdgeInsets.all(10),
-        // itemCount: _articles.length, 
         itemCount: _articles.length,
 
         itemBuilder: (BuildContext context, int index) {  
@@ -129,9 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Image.network(article.imageUrl, fit: BoxFit.cover, width: size.width /1, height: size.height /4,),
 
                 const SizedBox(height: 8.0,),
-                Text(article.title, style: AppTheme.titleTextStyle,),
-                // const SizedBox(height: 8.0,),
-                // Text(article.date),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(article.title, style: AppTheme.titleTextStyle,),
+                ),
+                
                 const SizedBox(height: 8.0,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10), 
@@ -139,6 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SubtitleSplit(article.body).subtitleString(), 
                     style: AppTheme.subtitleTextStyle,),
                 ),
+                
                 const SizedBox(height: 8.0,),
                 ElevatedButton(
                   onPressed: () { 
@@ -163,12 +160,12 @@ class AppTheme {
   static const Color buttonColor = Colors.pink;
   static const Color backgroundColor = Colors.white;
   static const TextStyle titleTextStyle = TextStyle(
-    fontSize: 22, 
+    fontSize: 16, 
     fontWeight: FontWeight.bold, 
     color: textColor
   );
   static const TextStyle subtitleTextStyle = TextStyle(
-    fontSize: 16,
+    fontSize: 12,
     color: textColor
   );  
   static const TextStyle bodyTextStyle = TextStyle(
@@ -193,13 +190,4 @@ class SubtitleSplit {
   }
 
 }
-
-// class ArticleData {
-//     static List<ArticleItem> articles = [
-//     ArticleItem(title: 'Article 1', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
-//     ArticleItem(title: 'Article 2', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
-//     ArticleItem(title: 'Article 3', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
-//     ArticleItem(title: 'Article 4', date: '21 mars 2023', summary:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://picsum.photos/seed/picsum/200/300', ),
-//   ];
-// }
 
