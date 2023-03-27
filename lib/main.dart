@@ -43,16 +43,14 @@ class _MyHomePageState extends State<MyHomePage> {
   // static List<ArticleItem> articles = ArticleData.articles;
 
   Future<List<ArticleItem>> _getArticles() async {
-    var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
-    var response = await http.get(url);
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
 
     if(response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
       List<ArticleItem> articles = body.map((item) => ArticleItem.fromJSON(item)).toList();
-      print(_articles);
       return articles;
     } else {
-      throw Exception('Failed to load articles');
+      throw Exception('Failed to fetch articles');
     }
   }
 
@@ -70,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _articles = value;
       });
+
     });
   }
 
@@ -105,8 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body:ListView.builder(
         padding: const EdgeInsets.all(10),
         // itemCount: _articles.length, 
-        itemCount: _articles?.length ?? 0,
-
+        itemCount: _articles.length,
 
         itemBuilder: (BuildContext context, int index) {  
           final article = _articles[index];
