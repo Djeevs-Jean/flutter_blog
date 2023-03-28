@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: AppTheme.titleTextStyle.copyWith(color: Colors.white),)
                   ),
                   const SizedBox(height: 23,),
-                  const Icon(Icons.supervised_user_circle, size: 65,)
+                  const Icon(Icons.dashboard, size: 65,)
                 ],
             )),
             ListTile(title: const Text("Account",), onTap: () {},),
@@ -98,10 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       appBar: AppBar(
         title: Center(child:Text(widget.title)),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
-        ],
+        // actions: [
+        //   IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
+        //   IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
+        // ],
       ),
       body: _isLoading // check if articles are being fetched
           ? const Center(
