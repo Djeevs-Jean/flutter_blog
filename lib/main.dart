@@ -4,6 +4,8 @@ import 'article_item.dart';
 import 'article_detail.dart';
 import 'package:http/http.dart' as http;
 
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -13,9 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'Blog Flutter')
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+      ),
+      home: const MyHomePage(title: 'Blog Horizon')
     );
   }
 }
@@ -32,10 +37,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   late List<ArticleItem> _articles;
+  String imageUrl = "https://placehold.co/300x400.png";
   bool _isLoading = true; 
 
   Future<List<ArticleItem>> _getArticles() async {
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts?_limit=20'));
 
     if(response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
@@ -65,20 +71,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
+    // final Size size = MediaQuery.of(context).size; // Récupère les dimensions de l'écran
+
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.blue, ),
+              decoration: const BoxDecoration(color: AppTheme.primaryColor, ),
               child: Column(
                 children: [
                   Center(
-                    child: Text("Application Blog Flutter", 
+                    child: Text("Application Blog Horizon", 
                     style: AppTheme.titleTextStyle.copyWith(color: Colors.white),)
                   ),
                   const SizedBox(height: 23,),
@@ -103,11 +109,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
         itemBuilder: (BuildContext context, int index) {  
           final article = _articles[index];
-          return Card(
+          return 
+          Card(
             margin: const EdgeInsets.all(10),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
+                const SizedBox(height: 16.0,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity, height: 200, ),
+                ),
+
                 const SizedBox(height: 8.0,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -116,9 +129,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 
                 const SizedBox(height: 8.0,),
                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("Article ${article.id}", style: AppTheme.idTextStyle,),
+                ),
+
+                const SizedBox(height: 8.0,),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10), 
                   child: Text(
-                    CasterBodyText(article.body).subtitleString(), 
+                    SubtitleSplit(article.body).subtitleString(), 
                     style: AppTheme.subtitleTextStyle,),
                 ),
                 
@@ -145,6 +164,10 @@ class AppTheme {
   static const Color textColor = Colors.black;
   static const Color buttonColor = Colors.pink;
   static const Color backgroundColor = Colors.white;
+  static const TextStyle idTextStyle = TextStyle(
+    fontSize: 16,     
+    fontFamily: 'Georgia',
+  );
   static const TextStyle titleTextStyle = TextStyle(
     fontSize: 16, 
     fontWeight: FontWeight.bold, 
@@ -160,10 +183,10 @@ class AppTheme {
   );
 }
 
-class CasterBodyText {
+class SubtitleSplit {
   final String value;
 
-  CasterBodyText(this.value);
+  SubtitleSplit(this.value);
 
   String subtitleString() {
     int N = 200;
@@ -176,4 +199,3 @@ class CasterBodyText {
   }
 
 }
-
