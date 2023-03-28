@@ -13,9 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: 'Blog Flutter')
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const MyHomePage(title: 'Blog Flutter')
     );
   }
 }
@@ -65,8 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.blue, ),
+              decoration: const BoxDecoration(color: Colors.deepPurple, ),
               child: Column(
                 children: [
                   Center(
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: AppTheme.titleTextStyle.copyWith(color: Colors.white),)
                   ),
                   const SizedBox(height: 23,),
-                  const Icon(Icons.supervised_user_circle, size: 65,)
+                  const Icon(Icons.verified_user_rounded, size: 65,)
                 ],
             )),
             ListTile(title: const Text("Account",), onTap: () {},),
@@ -141,10 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class AppTheme {
-  static const Color primaryColor = Colors.pink;
   static const Color textColor = Colors.black;
-  static const Color buttonColor = Colors.pink;
-  static const Color backgroundColor = Colors.white;
   static const TextStyle titleTextStyle = TextStyle(
     fontSize: 16, 
     fontWeight: FontWeight.bold, 
