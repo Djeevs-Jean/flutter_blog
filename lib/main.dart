@@ -98,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       appBar: AppBar(
         title: Center(child:Text(widget.title)),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.padding)),
+        ],
       ),
       body: _isLoading // check if articles are being fetched
           ? const Center(
