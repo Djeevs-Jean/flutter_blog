@@ -12,15 +12,12 @@ class ArticleDatailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(articleItem.title)),
-        // title: Center(child: Text("Article ${articleItem.id}")),
-        // title: Text(articleItem.title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image.network(articleItem.imageUrl, fit: BoxFit.cover, width: double.infinity, height: 400,),
             const SizedBox(height: 16,),
             Text(articleItem.body, style: const TextStyle(fontSize: 22, ),),
           ],

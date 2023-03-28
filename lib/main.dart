@@ -4,8 +4,6 @@ import 'article_item.dart';
 import 'article_detail.dart';
 import 'package:http/http.dart' as http;
 
-
-
 void main() {
   runApp(const MyApp());
 }
@@ -15,12 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
-      home: const MyHomePage(title: 'Blog Horizon')
+      home: MyHomePage(title: 'Blog Flutter')
     );
   }
 }
@@ -74,18 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size; // Récupère les dimensions de l'écran
-
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: AppTheme.primaryColor, ),
+              decoration: const BoxDecoration(color: Colors.blue, ),
               child: Column(
                 children: [
                   Center(
-                    child: Text("Application Blog Horizon", 
+                    child: Text("Application Blog Flutter", 
                     style: AppTheme.titleTextStyle.copyWith(color: Colors.white),)
                   ),
                   const SizedBox(height: 23,),
@@ -93,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
             )),
             ListTile(title: const Text("Account",), onTap: () {},),
-            ListTile(title: const Text("Login",), onTap: () {},),
+            ListTile(title: const Text("FAQ",), onTap: () {},),
           ],
         ),
       ),
@@ -115,13 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
-                const SizedBox(height: 16.0,),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                //   // child: Image.network(article.imageUrl, fit: BoxFit.cover, width: double.infinity, height: 200, ),
-                // ),
-                // Image.network(article.imageUrl, fit: BoxFit.cover, width: size.width /1, height: size.height /4,),
-
                 const SizedBox(height: 8.0,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -132,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10), 
                   child: Text(
-                    SubtitleSplit(article.body).subtitleString(), 
+                    CasterBodyText(article.body).subtitleString(), 
                     style: AppTheme.subtitleTextStyle,),
                 ),
                 
@@ -174,10 +160,10 @@ class AppTheme {
   );
 }
 
-class SubtitleSplit {
+class CasterBodyText {
   final String value;
 
-  SubtitleSplit(this.value);
+  CasterBodyText(this.value);
 
   String subtitleString() {
     int N = 200;
