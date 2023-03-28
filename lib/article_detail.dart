@@ -14,20 +14,20 @@ class ArticleDatailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(articleItem.title)),
-        // title: Center(child: Text("Article ${articleItem.id}")),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity, height: 400,),
             const SizedBox(height: 16,),
+            Text("Article ${articleItem.id}", style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 16,),
             Text(articleItem.body, style: const TextStyle(fontSize: 22, ),),
           ],
-          ), 
+        ),
       ),
     );
   }
-  
 }
